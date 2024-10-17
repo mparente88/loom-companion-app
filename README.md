@@ -34,3 +34,9 @@ The MVP for the Loom Companion App will have the following:
 [ERD](https://drive.google.com/file/d/1OntQVeyVJKAzP7HFGClC1jQxIjim5eES/view?usp=sharing)
 
 [Wireframe](https://drive.google.com/file/d/11WIulf6OQDkxL2Bzn0Ys0fX-QjHkH7Iv/view?usp=sharing)
+
+### Credits
+
+Images created by ChatGPT
+
+Project maintained by Molly Parente
