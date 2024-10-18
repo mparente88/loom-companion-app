@@ -3,6 +3,7 @@ body {
   background-size: cover;
   background-position: center;
   font-family: "Comfortaa", sans-serif;
+  height: 100vh;
 }
 
 header {
@@ -36,7 +37,7 @@ nav {
 .hero-banner-container {
   justify-content: center;
   align-items: center;
-  height: 900px;
+  height: 23%;
 }
 
 .button-section {
