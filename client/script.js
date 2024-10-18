@@ -1,9 +1,11 @@
 document.querySelector(".hamburger").addEventListener("click", () => {
   document.querySelector(".hamburger-menu").classList.toggle("show")
+  document.querySelector(".logo").classList.toggle("shift")
 })
 
 document.querySelector(".close-btn").addEventListener("click", () => {
   document.querySelector(".hamburger-menu").classList.remove("show")
+  document.querySelector(".logo").classList.remove("shift")
 })
 
 const fetchFears = async () => {
