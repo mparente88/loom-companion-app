@@ -1,0 +1,81 @@
+body {
+  font-family: "Comfortaa", sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.hamburger {
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.logo a {
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 700;
+  color: black;
+}
+
+.hero-banner {
+  background-image: url("../images/loom_logo.jpeg");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 300px;
+}
+
+.button-section {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.hamburger-menu {
+  position: absolute;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: #333;
+  color: white;
+  transition: left 0.3s ease;
+}
+
+.hamburger-menu ul {
+  list-style-type: none;
+  padding: 20px;
+}
+
+.hamburger-menu ul li {
+  margin: 20px 0;
+}
+
+.hamburger-menu ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.hamburger-menu.show {
+  left: 0;
+}
+
+.close-btn {
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
