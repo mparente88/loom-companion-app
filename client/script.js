@@ -8,6 +8,22 @@ document.querySelector(".close-btn").addEventListener("click", () => {
   document.querySelector(".logo").classList.remove("shift")
 })
 
+//ChatGPT showed me what "isClickInside" is.
+
+document.addEventListener("click", (event) => {
+  const isClickInside = document
+    .querySelector(".hamburger-menu")
+    .contains(event.target)
+  const isHamburger = document
+    .querySelector(".hamburger")
+    .contains(event.target)
+
+  if (!isClickInside && !isHamburger) {
+    document.querySelector(".hamburger-menu").classList.remove("show")
+    document.querySelector(".logo").classList.remove("shift")
+  }
+})
+
 //I asked ChatGPT for help in formatting the "createElement" function.
 
 const fetchFears = async () => {
