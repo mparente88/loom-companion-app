@@ -8,6 +8,8 @@ document.querySelector(".close-btn").addEventListener("click", () => {
   document.querySelector(".logo").classList.remove("shift")
 })
 
+//I asked ChatGPT for help in formatting the "createElement" function.
+
 const fetchFears = async () => {
   try {
     const response = await axios.get(`http://localhost:3001/fears`)

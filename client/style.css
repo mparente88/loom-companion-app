@@ -24,6 +24,16 @@ nav {
 .hamburger {
   font-size: 54px;
   cursor: pointer;
+  background-color: #f5f5f5;
+  border: 2px solid #dcdcdc;
+  border-radius: 10px;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.hamburger:hover {
+  background-color: #b3e0ff;
+  border-color: #99cfff;
 }
 
 .logo a {
@@ -36,6 +46,14 @@ nav {
   text-shadow: 2px 2px rgb(178, 137, 137);
   border-radius: 10px;
   padding: 10px 20px;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+.logo:hover a {
+  background-color: #a7c7e7;
+  color: #333;
+  border-color: #f0f8ff;
+  text-shadow: 2px 2px rgba(70, 130, 180, 0.7);
 }
 
 .logo {
@@ -67,7 +85,8 @@ button {
   border: 2px solid #f0f8ff;
   border-radius: 15px;
   box-shadow: 0 4px 9px rgba(0, 0, 0, 0.25);
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease,
+    border-color 0.3s ease;
   font-family: "Comfortaa", sans-serif;
 }
 
@@ -86,6 +105,9 @@ button:hover {
   background-image: url("../images/loom_aside.png");
   background-attachment: fixed;
   background-color: #333;
+  border: solid #333;
+  border-width: 0px;
+  border-right-width: 2px;
   color: white;
   transition: left 0.3s ease;
 }
@@ -172,6 +194,15 @@ button:hover {
   font-family: "Comfortaa", sans-serif;
   flex: 0 1 calc(50% - 20px);
   box-sizing: border-box;
+  transition: background-color 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stuffy-item:hover,
+.kid-item:hover,
+.fear-item:hover {
+  background-color: #fadadd;
+  border-color: #ffb6c1;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
 }
 
 .stuffy-item h3,
