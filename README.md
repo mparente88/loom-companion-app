@@ -29,6 +29,8 @@ The MVP for the Loom Companion App will have the following:
 
 1. Full CRUD functionality for characters, stuffed animals and fears.
 
+2. Randomized character creation via ChatGPT.
+
 ## Links
 
 [ERD](https://drive.google.com/file/d/1OntQVeyVJKAzP7HFGClC1jQxIjim5eES/view?usp=sharing)
