@@ -54,6 +54,11 @@ const main = async () => {
     frequency: 50,
   })
 
+  exampleStuffy1.person = exampleKid._id
+  exampleStuffy2.person = exampleKid._id
+
+  exampleKid.favStuffy = exampleStuffy1._id
+
   await exampleFear1.save()
   await exampleFear2.save()
   await exampleStuffy1.save()

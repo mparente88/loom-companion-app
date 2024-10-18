@@ -1,0 +1,9 @@
+const express = require("express")
+const db = require("./db")
+const fearController = require("./controllers/fearController")
+const kidController = require("./controllers/kidController")
+const stuffyController = require("./controllers/stuffyController")
+const bodyParser = require("body-parser")
+const logger = require("morgan")
+const PORT = process.env.PORT || 3001
+const app = express()
