@@ -2,7 +2,7 @@ const Stuffy = require("../models/stuffy")
 
 const getAllStuffies = async (req, res) => {
   try {
-    const stuffies = await Stuffy.find()
+    const stuffies = await Stuffy.find().populate(`person`)
     res.json(stuffies)
   } catch (error) {
     return res.status(500).send(error.message)

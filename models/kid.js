@@ -13,7 +13,7 @@ const kidSchema = new Schema(
     },
     mainFear: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: `MainFear`,
+      ref: `Fear`,
       required: false,
     },
     otherFears: [

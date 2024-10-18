@@ -2,7 +2,7 @@ const Kid = require("../models/kid")
 
 const getAllKids = async (req, res) => {
   try {
-    const kids = await Kid.find()
+    const kids = await Kid.find().populate(`mainFear`).populate(`favStuffy`)
     res.json(kids)
   } catch (error) {
     return res.status(500).send(error.message)

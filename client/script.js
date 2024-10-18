@@ -41,6 +41,8 @@ const fetchKids = async () => {
         <h3>${kid.name}</h3>
         <p>Age: ${kid.age}</p>
         <p>Description: ${kid.desc}</p>
+        <p>Main Fear: ${kid.mainFear ? kid.mainFear.name : `None`}</p>
+        <p>Favorite Stuffy: ${kid.favStuffy ? kid.favStuffy.name : `None`}</p>
       `
       kidsList.appendChild(kidDiv)
     })
@@ -62,6 +64,7 @@ const fetchStuffies = async () => {
         <h3>${stuffy.name}</h3>
         <p>Type: ${stuffy.animalType}</p>
         <p>Description: ${stuffy.desc}</p>
+        <p>Belongs To: ${stuffy.person ? stuffy.person.name : `No One`}</p>
       `
       stuffiesList.appendChild(stuffyDiv)
     })
