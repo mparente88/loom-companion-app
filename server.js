@@ -1,4 +1,5 @@
 const express = require("express")
+const cors = require("cors")
 const db = require("./db")
 const fearController = require("./controllers/fearController")
 const kidController = require("./controllers/kidController")
@@ -10,6 +11,7 @@ const app = express()
 
 app.use(logger("dev"))
 app.use(bodyParser.json())
+app.use(cors())
 
 app.get("/", (req, res) => res.send("This is our landing page!"))
 app.get("/kids", kidController.getAllKids)

@@ -100,3 +100,30 @@ button {
   top: 20px;
   right: 20px;
 }
+
+.stuffy-item,
+.kid-item,
+.fear-item {
+  background-color: #a7c7e7;
+  border: 2px solid #f0f8ff;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 10px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: "Comfortaa", sans-serif;
+}
+
+.stuffy-item h3,
+.kid-item h3,
+.fear-item h3 {
+  margin-bottom: 10px;
+  font-size: 1.5em;
+}
+
+.stuffy-item p,
+.kid-item p,
+.fear-item p {
+  margin: 5px 0;
+  font-size: 1em;
+  color: #333;
+}

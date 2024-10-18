@@ -10,6 +10,20 @@ const main = async () => {
   await Stuffy.deleteMany()
   await Fear.deleteMany()
 
+  const exampleFear1 = await new Fear({
+    name: `Fear of the Dark`,
+    desc: `The child is afraid of being in dark rooms and places.`,
+    severity: 80,
+    frequency: 60,
+  })
+
+  const exampleFear2 = await new Fear({
+    name: `Fear of Thunderstorms`,
+    desc: `The child gets scared during thunderstorms due to loud noises and flashes of lightning.`,
+    severity: 70,
+    frequency: 50,
+  })
+
   const exampleKid = await new Kid({
     name: `Emma`,
     age: 7,
@@ -38,20 +52,6 @@ const main = async () => {
     role: `Guardian`,
     wearTear: `New and in perfect condition`,
     person: null,
-  })
-
-  const exampleFear1 = await new Fear({
-    name: `Fear of the Dark`,
-    desc: `The child is afraid of being in dark rooms and places.`,
-    severity: 80,
-    frequency: 60,
-  })
-
-  const exampleFear2 = await new Fear({
-    name: `Fear of Thunderstorms`,
-    desc: `The child gets scared during thunderstorms due to loud noises and flashes of lightning.`,
-    severity: 70,
-    frequency: 50,
   })
 
   exampleStuffy1.person = exampleKid._id
