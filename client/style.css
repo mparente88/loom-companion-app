@@ -66,9 +66,24 @@ nav {
 }
 
 .hero-banner-container {
-  justify-content: center;
-  align-items: center;
-  height: 23%;
+  background-color: rgba(250, 218, 221, 0.8);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  margin: 20px;
+  border: 2px solid #ffeff0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero-header {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.hero-instructions {
+  font-size: 18px;
+  color: #555;
 }
 
 .button-section {
@@ -110,6 +125,7 @@ button:hover {
   border-width: 0px;
   border-right-width: 2px;
   color: white;
+  box-shadow: 0 2px 15px black;
   transition: left 0.3s ease;
 }
 
