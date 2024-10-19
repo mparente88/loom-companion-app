@@ -13,6 +13,9 @@ const getKidById = async (req, res) => {
   try {
     const { id } = req.params
     const kid = await Kid.findById(id)
+      .populate(`favStuffy`)
+      .populate(`mainFear`)
+      .populate(`otherFears`)
     if (kid) {
       return res.json(kid)
     }

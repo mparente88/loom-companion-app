@@ -12,7 +12,7 @@ const getAllStuffies = async (req, res) => {
 const getStuffyById = async (req, res) => {
   try {
     const { id } = req.params
-    const stuffy = await Stuffy.findById(id)
+    const stuffy = await Stuffy.findById(id).populate(`person`)
     if (stuffy) {
       return res.json(stuffy)
     }

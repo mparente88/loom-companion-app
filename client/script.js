@@ -1,29 +1,3 @@
-document.querySelector(".hamburger").addEventListener("click", () => {
-  document.querySelector(".hamburger-menu").classList.toggle("show")
-  document.querySelector(".logo").classList.toggle("shift")
-})
-
-document.querySelector(".close-btn").addEventListener("click", () => {
-  document.querySelector(".hamburger-menu").classList.remove("show")
-  document.querySelector(".logo").classList.remove("shift")
-})
-
-//ChatGPT showed me what "isClickInside" is.
-
-document.addEventListener("click", (event) => {
-  const isClickInside = document
-    .querySelector(".hamburger-menu")
-    .contains(event.target)
-  const isHamburger = document
-    .querySelector(".hamburger")
-    .contains(event.target)
-
-  if (!isClickInside && !isHamburger) {
-    document.querySelector(".hamburger-menu").classList.remove("show")
-    document.querySelector(".logo").classList.remove("shift")
-  }
-})
-
 //I asked ChatGPT for help in formatting the "createElement" function.
 
 const fetchFears = async () => {
@@ -41,6 +15,10 @@ const fetchFears = async () => {
       <p>Severity: ${fear.severity}</p>
       <p>Frequency: ${fear.frequency}</p>
       `
+
+      fearDiv.addEventListener(`click`, () => {
+        window.location.href = `fearDetail.html?id=${fear._id}`
+      })
       fearsList.appendChild(fearDiv)
     })
   } catch (error) {
@@ -64,6 +42,10 @@ const fetchKids = async () => {
         <p>Main Fear: ${kid.mainFear ? kid.mainFear.name : `None`}</p>
         <p>Favorite Stuffy: ${kid.favStuffy ? kid.favStuffy.name : `None`}</p>
       `
+
+      kidDiv.addEventListener(`click`, () => {
+        window.location.href = `kidDetail.html?id=${kid._id}`
+      })
       kidsList.appendChild(kidDiv)
     })
   } catch (error) {
@@ -86,10 +68,93 @@ const fetchStuffies = async () => {
         <p>Description: ${stuffy.desc}</p>
         <p>Belongs To: ${stuffy.person ? stuffy.person.name : `No One`}</p>
       `
+
+      stuffyDiv.addEventListener(`click`, () => {
+        window.location.href = `stuffyDetail.html?id=${stuffy._id}`
+      })
       stuffiesList.appendChild(stuffyDiv)
     })
   } catch (error) {
     console.error("Error fetching stuffies:", error)
+  }
+}
+
+const fetchFearDetail = async () => {
+  const urlParams = new URLSearchParams(window.location.search)
+  const fearId = urlParams.get(`id`)
+
+  if (fearId) {
+    try {
+      const response = await axios.get(`http://localhost:3001/fears/${fearId}`)
+      const fear = response.data
+      const fearDetailDiv = document.getElementById(`fear-detail`)
+
+      fearDetailDiv.innerHTML = `
+      <h1>${fear.name}</h1>
+      <p>${fear.desc}</p>
+      <p>Severity: ${fear.severity}</p>
+      <p>Frequency: ${fear.frequency}</p>
+      `
+    } catch (error) {
+      console.error("Error fetching fear details:", error)
+    }
+  }
+}
+
+const fetchStuffyDetail = async () => {
+  const urlParams = new URLSearchParams(window.location.search)
+  const stuffyId = urlParams.get(`id`)
+
+  if (stuffyId) {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/stuffies/${stuffyId}`
+      )
+      const stuffy = response.data
+      const stuffyDetailDiv = document.getElementById(`stuffy-detail`)
+
+      stuffyDetailDiv.innerHTML = `
+      <h1>${stuffy.name}</h1>
+      <p>${stuffy.animalType}</p>
+      <p>${stuffy.desc}</p>
+      <p>${stuffy.role}</p>
+      <p>${stuffy.wearTear}</p>
+      <p>Belongs to: ${stuffy.person ? stuffy.person.name : `No One`}</p>
+      `
+    } catch (error) {
+      console.error(`Error fetching stuffed animal details:`, error)
+    }
+  }
+}
+
+const fetchKidDetail = async () => {
+  const urlParams = new URLSearchParams(window.location.search)
+  const kidId = urlParams.get("id")
+
+  if (kidId) {
+    try {
+      const response = await axios.get(`http://localhost:3001/kids/${kidId}`)
+      const kid = response.data
+      const kidDetailDiv = document.getElementById("kid-detail")
+
+      kidDetailDiv.innerHTML = `
+        <h1>${kid.name}</h1>
+        <p>${kid.age} Years Old</p>
+        <p>${kid.desc}</p>
+        <p>Main Fear: ${kid.mainFear ? kid.mainFear.name : "None"}</p>
+        <p>Favorite Stuffy: ${kid.favStuffy ? kid.favStuffy.name : "None"}</p>
+        <p>Sleep Quality: ${kid.sleepQual}</p>
+        <p>Nightmare Count: ${kid.nightmareCt}</p>
+        <p>Other Fears: ${
+          kid.otherFears && kid.otherFears.length
+            ? kid.otherFears.map((fear) => fear.name).join(", ")
+            : "None"
+        }</p>
+        <p>Notes: ${kid.notes ? kid.notes : "None"}</p>
+      `
+    } catch (error) {
+      console.error("Error fetching kid details:", error)
+    }
   }
 }
 
@@ -102,5 +167,37 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchStuffies()
   } else if (path === "/client/kids.html") {
     fetchKids()
+  } else if (path === "/client/fearDetail.html") {
+    fetchFearDetail()
+  } else if (path === "/client/kidDetail.html") {
+    fetchKidDetail()
+  } else if (path === "/client/stuffyDetail.html") {
+    fetchStuffyDetail()
+  }
+})
+
+document.querySelector(".hamburger").addEventListener("click", () => {
+  document.querySelector(".hamburger-menu").classList.toggle("show")
+  document.querySelector(".logo").classList.toggle("shift")
+})
+
+document.querySelector(".close-btn").addEventListener("click", () => {
+  document.querySelector(".hamburger-menu").classList.remove("show")
+  document.querySelector(".logo").classList.remove("shift")
+})
+
+//ChatGPT showed me what "isClickInside" is.
+
+document.addEventListener("click", (event) => {
+  const isClickInside = document
+    .querySelector(".hamburger-menu")
+    .contains(event.target)
+  const isHamburger = document
+    .querySelector(".hamburger")
+    .contains(event.target)
+
+  if (!isClickInside && !isHamburger) {
+    document.querySelector(".hamburger-menu").classList.remove("show")
+    document.querySelector(".logo").classList.remove("shift")
   }
 })
