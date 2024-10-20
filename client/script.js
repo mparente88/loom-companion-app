@@ -130,6 +130,8 @@ const fetchStuffyDetail = async () => {
   }
 }
 
+//ChatGPT helped with the .map higher function
+
 const fetchKidDetail = async () => {
   const urlParams = new URLSearchParams(window.location.search)
   const kidId = urlParams.get("id")
@@ -143,19 +145,29 @@ const fetchKidDetail = async () => {
         ? `<a href="stuffyDetail.html?id=${kid.favStuffy._id}">${kid.favStuffy.name}</a>`
         : `None`
 
+      const mainFearLink = kid.mainFear
+        ? `<a href="fearDetail.html?id=${kid.mainFear._id}">${kid.mainFear.name}</a>`
+        : `None`
+
+      const otherFearsLinks =
+        kid.otherFears && kid.otherFears.length
+          ? kid.otherFears
+              .map(
+                (fear) =>
+                  `<a href="fearDetail.html?id=${fear._id}">${fear.name}</a>`
+              )
+              .join(", ")
+          : "None"
+
       kidDetailDiv.innerHTML = `
         <h1>${kid.name}</h1>
         <p>${kid.age} Years Old</p>
         <p>${kid.desc}</p>
-        <p>Main Fear: ${kid.mainFear ? kid.mainFear.name : "None"}</p>
+        <p>Main Fear: ${mainFearLink}</p>
         <p>Favorite Stuffy: ${favStuffyLink}</p>
         <p>Sleep Quality: ${kid.sleepQual}</p>
         <p>Nightmare Count: ${kid.nightmareCt}</p>
-        <p>Other Fears: ${
-          kid.otherFears && kid.otherFears.length
-            ? kid.otherFears.map((fear) => fear.name).join(", ")
-            : "None"
-        }</p>
+        <p>Other Fears: ${otherFearsLinks}</p>
         <p>Notes: ${kid.notes ? kid.notes : "None"}</p>
       `
     } catch (error) {
@@ -181,6 +193,81 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchStuffyDetail()
   }
 })
+
+const kidForm = document.getElementById(`add-kid-form`)
+
+if (kidForm) {
+  kidForm.addEventListener(`submit`, async (event) => {
+    event.preventDefault()
+
+    const newKid = {
+      name: event.target.name.value,
+      age: event.target.age.value,
+      desc: event.target.desc.value,
+      sleepQual: event.target.sleepQual.value,
+      nightmareCt: event.target.nightmareCt.value,
+      note: event.target.notes.value || null,
+    }
+
+    try {
+      await axios.post(`http://localhost:3001/kids`, newKid)
+      alert(`Kid created!`)
+      window.location.href = `kids.html`
+    } catch (error) {
+      console.error(`Error creating kid:`, error)
+      alert(`Failed to create kid`)
+    }
+  })
+}
+
+const stuffyForm = document.getElementById(`add-stuffy-form`)
+
+if (stuffyForm) {
+  stuffyForm.addEventListener(`submit`, async (event) => {
+    event.preventDefault()
+
+    const newStuffy = {
+      name: event.target.name.value,
+      animalType: event.target.animalType.value,
+      desc: event.target.desc.value,
+      role: event.target.role.value,
+      wearTear: event.target.wearTear.value,
+    }
+
+    try {
+      await axios.post(`http://localhost:3001/stuffies`, newStuffy)
+      alert(`Stuffed Animal created successfully!`)
+      window.location.href = `stuffies.html`
+    } catch (error) {
+      console.error(`Error creating new stuffed animal:`, error)
+      alert(`Failed to create new stuffed animal.`)
+    }
+  })
+}
+
+const fearForm = document.getElementById(`add-fear-form`)
+
+if (fearForm) {
+  fearForm.addEventListener(`submit`, async (event) => {
+    event.preventDefault()
+
+    const newFear = {
+      name: event.target.name.value,
+      desc: event.target.desc.value,
+      severity: event.target.severity.value,
+      frequency: event.target.frequency.value,
+    }
+
+    try {
+      await axios.post(`http://localhost:3001/fears`, newFear)
+      alert(`Fear successfully created!`)
+      window.location.href = `fears.html`
+    } catch (error) {
+      console.error(`Error adding new fear:`, error)
+      alert(`Failed to add fear.`)
+    }
+  })
+}
 
 document.querySelector(".hamburger").addEventListener("click", () => {
   document.querySelector(".hamburger-menu").classList.toggle("show")
