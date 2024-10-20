@@ -112,6 +112,9 @@ const fetchStuffyDetail = async () => {
       )
       const stuffy = response.data
       const stuffyDetailDiv = document.getElementById(`stuffy-detail`)
+      const belongsToLink = stuffy.person
+        ? `<a href="kidDetail.html?id=${stuffy.person._id}">${stuffy.person.name}</a>`
+        : `No One`
 
       stuffyDetailDiv.innerHTML = `
       <h1>${stuffy.name}</h1>
@@ -119,7 +122,7 @@ const fetchStuffyDetail = async () => {
       <p>${stuffy.desc}</p>
       <p>${stuffy.role}</p>
       <p>${stuffy.wearTear}</p>
-      <p>Belongs to: ${stuffy.person ? stuffy.person.name : `No One`}</p>
+      <p>Belongs to: ${belongsToLink}</p>
       `
     } catch (error) {
       console.error(`Error fetching stuffed animal details:`, error)
@@ -136,13 +139,16 @@ const fetchKidDetail = async () => {
       const response = await axios.get(`http://localhost:3001/kids/${kidId}`)
       const kid = response.data
       const kidDetailDiv = document.getElementById("kid-detail")
+      const favStuffyLink = kid.favStuffy
+        ? `<a href="stuffyDetail.html?id=${kid.favStuffy._id}">${kid.favStuffy.name}</a>`
+        : `None`
 
       kidDetailDiv.innerHTML = `
         <h1>${kid.name}</h1>
         <p>${kid.age} Years Old</p>
         <p>${kid.desc}</p>
         <p>Main Fear: ${kid.mainFear ? kid.mainFear.name : "None"}</p>
-        <p>Favorite Stuffy: ${kid.favStuffy ? kid.favStuffy.name : "None"}</p>
+        <p>Favorite Stuffy: ${favStuffyLink}</p>
         <p>Sleep Quality: ${kid.sleepQual}</p>
         <p>Nightmare Count: ${kid.nightmareCt}</p>
         <p>Other Fears: ${
