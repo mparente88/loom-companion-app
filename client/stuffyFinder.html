@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script defer src="script.js"></script>
+    <title>Find the Perfect Stuffed Animal</title>
+  </head>
+  <body>
+    <h1>Find the Perfect Stuffed Animal</h1>
+
+    <form id="recommendation-form">
+      <label for="kid">Select a Kid:</label>
+      <select id="kid" name="kid">
+        <option value="">--Select Kid--</option>
+      </select>
+
+      <label for="fear">Select a Fear:</label>
+      <select id="fear" name="fear">
+        <option value="">--Select Fear--</option>
+      </select>
+
+      <button type="submit">Find Stuffed Animal</button>
+    </form>
+
+    <div id="recommendation-result"></div>
+  </body>
+</html>

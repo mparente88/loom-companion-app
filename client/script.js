@@ -471,6 +471,63 @@ const fetchKidDetail = async () => {
   }
 }
 
+const populateDropdowns = async () => {
+  try {
+    const [kidsResponse, fearsResponse] = await Promise.all([
+      axios.get("http://localhost:3001/kids"),
+      axios.get("http://localhost:3001/fears"),
+    ])
+
+    const kids = kidsResponse.data
+    const fears = fearsResponse.data
+    const kidSelect = document.getElementById("kid")
+    const fearSelect = document.getElementById("fear")
+
+    kids.forEach((kid) => {
+      const option = document.createElement("option")
+      option.value = kid._id
+      option.textContent = kid.name
+      kidSelect.appendChild(option)
+    })
+
+    fears.forEach((fear) => {
+      const option = document.createElement("option")
+      option.value = fear._id
+      option.textContent = fear.name
+      fearSelect.appendChild(option)
+    })
+  } catch (error) {
+    console.error("Error populating dropdowns:", error)
+  }
+}
+
+const handleFormSubmit = async (event) => {
+  event.preventDefault()
+
+  const kidId = document.getElementById("kid").value
+  const fearId = document.getElementById("fear").value
+
+  if (!kidId || !fearId) {
+    alert("Please select both a kid and a fear.")
+    return
+  }
+
+  try {
+    const response = await axios.post("http://localhost:3001/recommendStuffy", {
+      kidId,
+      fearId,
+    })
+
+    const recommendation = response.data.recommendation
+
+    const resultDiv = document.getElementById("recommendation-result")
+    resultDiv.innerHTML = `<H2>Recommended Stuffed Animal:</h2><p>${recomendation}</p>`
+  } catch (error) {
+    console.error("Error getting recommendation:", error)
+    alert("Failed to get stuffed animal recommendation.")
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname
 
@@ -486,6 +543,10 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchKidDetail()
   } else if (path === "/client/stuffyDetail.html") {
     fetchStuffyDetail()
+  } else if (path === "/client/stuffyFinder.html") {
+    populateDropdowns()
+    const form = document.getElementById("recommendation-form")
+    form.addEventListener("submit", handleFormSubmit)
   }
 })
 
