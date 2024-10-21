@@ -535,6 +535,23 @@ button[type="submit"]:hover {
   flex-direction: column;
 }
 
+.delete-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 8px 16px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
 @media (max-width: 768px) {
   .edit-page {
     padding: 20px;

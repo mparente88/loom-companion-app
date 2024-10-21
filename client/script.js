@@ -323,6 +323,24 @@ const fetchFearDetail = async () => {
       document.getElementById(`edit-fear-btn`).addEventListener(`click`, () => {
         window.location.href = `editFear.html?id=${fearId}`
       })
+
+      document
+        .getElementById(`delete-fear-btn`)
+        .addEventListener(`click`, async () => {
+          const confirmDelete = confirm(
+            `You are about to delete a fear. Are you sure?`
+          )
+          if (confirmDelete) {
+            try {
+              await axios.delete(`http://localhost:3001/fears/${fearId}`)
+              alert(`Fear deleted successfully`)
+              window.location.href = `fears.html`
+            } catch (error) {
+              console.error(`Error deleting fear:`, error)
+              alert(`Failed to delete fear.`)
+            }
+          }
+        })
     } catch (error) {
       console.error("Error fetching fear details:", error)
     }
@@ -359,6 +377,24 @@ const fetchStuffyDetail = async () => {
         .addEventListener(`click`, () => {
           window.location.href = `editStuffy.html?id=${stuffyId}`
         })
+
+      document
+        .getElementById(`delete-stuffy-btn`)
+        .addEventListener(`click`, async () => {
+          const confirmDelete = confirm(
+            `You are about to delete a stuffed animal. Are you sure?`
+          )
+          if (confirmDelete) {
+            try {
+              await axios.delete(`http://localhost:3001/stuffies/${stuffyId}`)
+              alert(`Stuffed animal deleted successfully`)
+              window.location.href = `stuffies.html`
+            } catch (error) {
+              console.error(`Error deleting stuffed animal:`, error)
+              alert(`Failed to delete stuffed animal.`)
+            }
+          }
+        })
     } catch (error) {
       console.error(`Error fetching stuffed animal details:`, error)
     }
@@ -376,6 +412,7 @@ const fetchKidDetail = async () => {
       const response = await axios.get(`http://localhost:3001/kids/${kidId}`)
       const kid = response.data
       const kidDetailDiv = document.getElementById("kid-detail")
+
       const favStuffyLink = kid.favStuffy
         ? `<a href="stuffyDetail.html?id=${kid.favStuffy._id}">${kid.favStuffy.name}</a>`
         : `None`
@@ -407,9 +444,27 @@ const fetchKidDetail = async () => {
         <button id="edit-kid-btn" class="detail-edit-btn">Edit</button>
       `
 
-      document.getElementById(`edit-kid-btn`).addEventListener(`click`, () => {
+      document.getElementById("edit-kid-btn").addEventListener("click", () => {
         window.location.href = `editKid.html?id=${kidId}`
       })
+
+      document
+        .getElementById("delete-kid-btn")
+        .addEventListener("click", async () => {
+          const confirmDelete = confirm(
+            "You are about to delete this entry. Are you sure?"
+          )
+          if (confirmDelete) {
+            try {
+              await axios.delete(`http://localhost:3001/kids/${kidId}`)
+              alert("Kid deleted successfully")
+              window.location.href = "kids.html"
+            } catch (error) {
+              console.error("Error deleting kid:", error)
+              alert("Failed to delete kid.")
+            }
+          }
+        })
     } catch (error) {
       console.error("Error fetching kid details:", error)
     }
