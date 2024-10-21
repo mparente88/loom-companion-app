@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script defer src="script.js"></script>
     <title>Add Kid - Loom Companion App</title>
   </head>
@@ -33,8 +34,29 @@
             <textarea id="desc" name="desc" rows="4" required></textarea>
           </div>
           <div class="form-group">
-            <label for="favStuffy">Favorite Stuffy</label>
-            <input type="text" id="favStuffy" name="favStuffy" />
+            <label for="sleepQual">Sleep Quality</label>
+            <input
+              type="number"
+              id="sleepQual"
+              name="sleepQual"
+              required
+              min="0"
+              max="100"
+            />
+          </div>
+          <div class="form-group">
+            <label for="nightmareCt">Nightmare Count</label>
+            <input
+              type="number"
+              id="nightmareCt"
+              name="nightmareCt"
+              required
+              min="0"
+            />
+          </div>
+          <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea id="notes" name="notes" rows="2"></textarea>
           </div>
           <button type="submit">Add Kid</button>
         </form>

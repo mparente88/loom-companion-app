@@ -41,6 +41,9 @@ const fetchKids = async () => {
         <p>Description: ${kid.desc}</p>
         <p>Main Fear: ${kid.mainFear ? kid.mainFear.name : `None`}</p>
         <p>Favorite Stuffy: ${kid.favStuffy ? kid.favStuffy.name : `None`}</p>
+        <button class="edit-btn" onclick="window.location.href='editKid.html?id=${
+          kid._id
+        }'">Edit</button>
       `
 
       kidDiv.addEventListener(`click`, () => {
@@ -194,10 +197,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 })
 
-const kidForm = document.getElementById(`add-kid-form`)
+const kidForm = document.getElementById("add-kid-form")
 
 if (kidForm) {
-  kidForm.addEventListener(`submit`, async (event) => {
+  kidForm.addEventListener("submit", async (event) => {
     event.preventDefault()
 
     const newKid = {
@@ -206,7 +209,7 @@ if (kidForm) {
       desc: event.target.desc.value,
       sleepQual: event.target.sleepQual.value,
       nightmareCt: event.target.nightmareCt.value,
-      note: event.target.notes.value || null,
+      notes: event.target.notes.value || null,
     }
 
     try {
