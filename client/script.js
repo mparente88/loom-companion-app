@@ -317,7 +317,12 @@ const fetchFearDetail = async () => {
       <p>${fear.desc}</p>
       <p>Severity: ${fear.severity}</p>
       <p>Frequency: ${fear.frequency}</p>
+      <button id="edit-fear-btn" class="detail-edit-btn">Edit</button>
       `
+
+      document.getElementById(`edit-fear-btn`).addEventListener(`click`, () => {
+        window.location.href = `editFear.html?id=${fearId}`
+      })
     } catch (error) {
       console.error("Error fetching fear details:", error)
     }
@@ -346,7 +351,14 @@ const fetchStuffyDetail = async () => {
       <p>${stuffy.role}</p>
       <p>${stuffy.wearTear}</p>
       <p>Belongs to: ${belongsToLink}</p>
+      <button id="edit-stuffy-btn" class="detail-edit-btn">Edit</button>
       `
+
+      document
+        .getElementById(`edit-stuffy-btn`)
+        .addEventListener(`click`, () => {
+          window.location.href = `editStuffy.html?id=${stuffyId}`
+        })
     } catch (error) {
       console.error(`Error fetching stuffed animal details:`, error)
     }
@@ -392,7 +404,12 @@ const fetchKidDetail = async () => {
         <p>Nightmare Count: ${kid.nightmareCt}</p>
         <p>Other Fears: ${otherFearsLinks}</p>
         <p>Notes: ${kid.notes ? kid.notes : "None"}</p>
+        <button id="edit-kid-btn" class="detail-edit-btn">Edit</button>
       `
+
+      document.getElementById(`edit-kid-btn`).addEventListener(`click`, () => {
+        window.location.href = `editKid.html?id=${kidId}`
+      })
     } catch (error) {
       console.error("Error fetching kid details:", error)
     }
