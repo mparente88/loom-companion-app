@@ -10,9 +10,9 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script defer src="script.js"></script>
-    <title>Add Kid - Loom Companion App</title>
+    <title>Edit Stuffy - Loom Companion App</title>
   </head>
   <body>
     <header>
@@ -23,58 +23,46 @@
         </div>
       </nav>
     </header>
+
+    <div class="hero-banner-container">
+      <h2 class="hero-header">Edit a Stuffy's Information</h2>
+      <p class="hero-instructions">
+        You can modify the stuffed animal's details and link them to a person.
+      </p>
+    </div>
+
     <main>
-      <div class="add-page">
-        <h1>Add New Kid</h1>
-        <form id="add-kid-form">
+      <div class="edit-page">
+        <h1>Edit Stuffy</h1>
+        <form id="edit-stuffy-form">
           <div class="form-group">
-            <label for="name">Kid's Name</label>
+            <label for="name">Stuffy's Name</label>
             <input type="text" id="name" name="name" required />
           </div>
           <div class="form-group">
-            <label for="age">Age</label>
-            <input type="number" id="age" name="age" required />
+            <label for="animalType">Animal Type</label>
+            <input type="text" id="animalType" name="animalType" required />
           </div>
           <div class="form-group">
             <label for="desc">Description</label>
             <textarea id="desc" name="desc" rows="4" required></textarea>
           </div>
           <div class="form-group">
-            <label for="sleepQual">Sleep Quality</label>
-            <input
-              type="number"
-              id="sleepQual"
-              name="sleepQual"
-              required
-              min="0"
-              max="100"
-            />
+            <label for="person">Person</label>
+            <input type="text" id="person" name="person" />
           </div>
-          <div class="form-group">
-            <label for="nightmareCt">Nightmare Count</label>
-            <input
-              type="number"
-              id="nightmareCt"
-              name="nightmareCt"
-              required
-              min="0"
-            />
-          </div>
-          <div class="form-group">
-            <label for="notes">Notes</label>
-            <textarea id="notes" name="notes" rows="2"></textarea>
-          </div>
-          <button type="submit">Add Kid</button>
+          <button type="submit">Update Stuffy</button>
         </form>
       </div>
     </main>
+
     <aside class="hamburger-menu">
       <div class="close-btn">&times;</div>
       <ul class="link-list">
         <li><a href="./index.html">Home</a></li>
+        <li><a href="./fears.html">Fears</a></li>
         <li><a href="./kids.html">Persons</a></li>
         <li><a href="./stuffies.html">Stuffed Animals</a></li>
-        <li><a href="./fears.html">Fears</a></li>
       </ul>
     </aside>
   </body>

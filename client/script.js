@@ -14,15 +14,61 @@ const fetchFears = async () => {
       <p>${fear.desc}</p>
       <p>Severity: ${fear.severity}</p>
       <p>Frequency: ${fear.frequency}</p>
+      <button class="edit-btn" onclick="window.location.href='editFear.html?id=${fear._id}'">Edit</button>
       `
 
       fearDiv.addEventListener(`click`, () => {
         window.location.href = `fearDetail.html?id=${fear._id}`
       })
       fearsList.appendChild(fearDiv)
+
+      const editButton = fearDiv.querySelector(`.edit-btn`)
+      editButton.addEventListener(`click`, (event) => {
+        event.stopPropagation()
+        window.location.href = `editFear.html?id=${fear._id}`
+      })
     })
   } catch (error) {
     console.error(`Error fetching fears:`, error)
+  }
+}
+
+const fetchFearDetailForEdit = async () => {
+  const urlParams = new URLSearchParams(window.location.search)
+  const fearId = urlParams.get("id")
+
+  if (fearId) {
+    try {
+      const response = await axios.get(`http://localhost:3001/fears/${fearId}`)
+      const fear = response.data
+
+      document.getElementById("name").value = fear.name
+      document.getElementById("desc").value = fear.desc
+      document.getElementById("severity").value = fear.severity
+      document.getElementById("frequency").value = fear.frequency
+
+      const editForm = document.getElementById("edit-fear-form")
+      editForm.addEventListener("submit", async (event) => {
+        event.preventDefault()
+
+        const updatedFear = {
+          name: event.target.name.value,
+          desc: event.target.desc.value,
+          severity: event.target.severity.value,
+          frequency: event.target.frequency.value,
+        }
+
+        try {
+          await axios.put(`http://localhost:3001/fears/${fearId}`, updatedFear)
+          alert("Fear updated successfully!")
+          window.location.href = "fears.html"
+        } catch (error) {
+          console.error("Error updating fear:", error)
+        }
+      })
+    } catch (error) {
+      console.error("Error fetching fear details for edit:", error)
+    }
   }
 }
 
@@ -49,11 +95,111 @@ const fetchKids = async () => {
       kidDiv.addEventListener(`click`, () => {
         window.location.href = `kidDetail.html?id=${kid._id}`
       })
+
+      const editButton = kidDiv.querySelector(`.edit-btn`)
+      editButton.addEventListener(`click`, (event) => {
+        event.stopPropagation() // ChatGPT showed me how to do this
+        window.location.href = `editKid.html?id=${kid._id}`
+      })
+
       kidsList.appendChild(kidDiv)
     })
   } catch (error) {
     console.error("Error fetching kids:", error)
   }
+}
+
+const fetchKidDetailForEdit = async () => {
+  const urlParams = new URLSearchParams(window.location.search)
+  const kidId = urlParams.get("id")
+
+  const [stuffiesResponse, fearsResponse] = await Promise.all([
+    axios.get(`http://localhost:3001/stuffies`),
+    axios.get(`http://localhost:3001/fears`),
+  ])
+  const stuffies = stuffiesResponse.data
+  const fears = fearsResponse.data
+
+  const favStuffySelect = document.getElementById("favStuffy")
+  const mainFearSelect = document.getElementById("mainFear")
+  const otherFearsSelect = document.getElementById("otherFears")
+
+  stuffies.forEach((stuffy) => {
+    const option = document.createElement("option")
+    option.value = stuffy._id
+    option.textContent = stuffy.name
+    favStuffySelect.appendChild(option)
+  })
+
+  fears.forEach((fear) => {
+    const option = document.createElement("option")
+    option.value = fear._id
+    option.textContent = fear.name
+    mainFearSelect.appendChild(option)
+
+    const otherFearsOption = option.cloneNode(true)
+    otherFearsSelect.appendChild(otherFearsOption)
+  })
+
+  if (kidId) {
+    try {
+      const response = await axios.get(`http://localhost:3001/kids/${kidId}`)
+      const kid = response.data
+
+      document.getElementById("name").value = kid.name
+      document.getElementById("age").value = kid.age
+      document.getElementById("desc").value = kid.desc
+      document.getElementById("favStuffy").value = kid.favStuffy
+        ? kid.favStuffy._id
+        : ""
+      document.getElementById("mainFear").value = kid.mainFear
+        ? kid.mainFear._id
+        : ""
+      document.getElementById("sleepQual").value = kid.sleepQual
+      document.getElementById("nightmareCt").value = kid.nightmareCt
+      document.getElementById("notes").value = kid.notes || ""
+
+      kid.otherFears.forEach((fear) => {
+        const option = otherFearsSelect.querySelector(
+          `option[value="${fear._id}"]`
+        )
+        if (option) option.selected = true
+      })
+
+      const editForm = document.getElementById("edit-kid-form")
+      editForm.addEventListener("submit", async (event) => {
+        event.preventDefault()
+
+        const updatedKid = {
+          name: event.target.name.value,
+          age: event.target.age.value,
+          desc: event.target.desc.value,
+          mainFear: event.target.mainFear.value,
+          favStuffy: event.target.favStuffy.value,
+          sleepQual: event.target.sleepQual.value,
+          nightmareCt: event.target.nightmareCt.value,
+          notes: event.target.notes.value || null,
+          otherFears: Array.from(
+            event.target["otherFears[]"].selectedOptions
+          ).map((fearOption) => fearOption.value),
+        }
+
+        try {
+          await axios.put(`http://localhost:3001/kids/${kidId}`, updatedKid)
+          alert("Kid updated successfully!")
+          window.location.href = "kids.html"
+        } catch (error) {
+          console.error("Error updating kid:", error)
+        }
+      })
+    } catch (error) {
+      console.error("Error fetching kid details for edit:", error)
+    }
+  }
+}
+
+if (window.location.pathname === "/client/editKid.html") {
+  fetchKidDetailForEdit()
 }
 
 const fetchStuffies = async () => {
@@ -70,12 +216,21 @@ const fetchStuffies = async () => {
         <p>Type: ${stuffy.animalType}</p>
         <p>Description: ${stuffy.desc}</p>
         <p>Belongs To: ${stuffy.person ? stuffy.person.name : `No One`}</p>
+        <button class="edit-btn" onclick="window.location.href='editStuffy.html?id=${
+          stuffy._id
+        }'">Edit</button>
       `
 
       stuffyDiv.addEventListener(`click`, () => {
         window.location.href = `stuffyDetail.html?id=${stuffy._id}`
       })
       stuffiesList.appendChild(stuffyDiv)
+
+      const editButton = stuffyDiv.querySelector(`.edit-btn`)
+      editButton.addEventListener(`click`, (event) => {
+        event.stopPropagation()
+        window.location.href = `editStuffy.html?id=${stuffy._id}`
+      })
     })
   } catch (error) {
     console.error("Error fetching stuffies:", error)

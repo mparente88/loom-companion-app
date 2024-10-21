@@ -3,16 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="style.css" />
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script defer src="script.js"></script>
-    <title>Add Kid - Loom Companion App</title>
+    <title>Edit Kid - Loom Companion App</title>
   </head>
   <body>
     <header>
@@ -23,10 +17,19 @@
         </div>
       </nav>
     </header>
+
+    <div class="hero-banner-container">
+      <h2 class="hero-header">Edit Kid's Information</h2>
+      <p class="hero-instructions">
+        Modify all the kid's details, including their fears, sleep quality, and
+        favorite stuffy.
+      </p>
+    </div>
+
     <main>
-      <div class="add-page">
-        <h1>Add New Kid</h1>
-        <form id="add-kid-form">
+      <div class="edit-page">
+        <h1>Edit Kid</h1>
+        <form id="edit-kid-form">
           <div class="form-group">
             <label for="name">Kid's Name</label>
             <input type="text" id="name" name="name" required />
@@ -40,41 +43,52 @@
             <textarea id="desc" name="desc" rows="4" required></textarea>
           </div>
           <div class="form-group">
+            <label for="favStuffy">Favorite Stuffy</label>
+            <select id="favStuffy" name="favStuffy">
+              <option value="">Select a Stuffy</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mainFear">Main Fear</label>
+            <select id="mainFear" name="mainFear">
+              <option value="">Select a Fear</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="otherFears">Other Fears</label>
+            <select id="otherFears" name="otherFears[]" multiple></select>
+          </div>
+          <div class="form-group">
             <label for="sleepQual">Sleep Quality</label>
             <input
               type="number"
               id="sleepQual"
               name="sleepQual"
-              required
               min="0"
               max="100"
+              required
             />
           </div>
           <div class="form-group">
             <label for="nightmareCt">Nightmare Count</label>
-            <input
-              type="number"
-              id="nightmareCt"
-              name="nightmareCt"
-              required
-              min="0"
-            />
+            <input type="number" id="nightmareCt" name="nightmareCt" required />
           </div>
           <div class="form-group">
             <label for="notes">Notes</label>
-            <textarea id="notes" name="notes" rows="2"></textarea>
+            <textarea id="notes" name="notes" rows="4"></textarea>
           </div>
-          <button type="submit">Add Kid</button>
+          <button type="submit">Update Kid</button>
         </form>
       </div>
     </main>
+
     <aside class="hamburger-menu">
       <div class="close-btn">&times;</div>
       <ul class="link-list">
         <li><a href="./index.html">Home</a></li>
+        <li><a href="./fears.html">Fears</a></li>
         <li><a href="./kids.html">Persons</a></li>
         <li><a href="./stuffies.html">Stuffed Animals</a></li>
-        <li><a href="./fears.html">Fears</a></li>
       </ul>
     </aside>
   </body>
