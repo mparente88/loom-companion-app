@@ -11,7 +11,7 @@ const stuffySchema = new Schema(
     person: {
       type: mongoose.Schema.Types.ObjectId,
       ref: `Kid`,
-      required: true,
+      required: false,
     },
   },
   { timestamps: true }

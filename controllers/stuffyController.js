@@ -27,12 +27,14 @@ const getStuffyById = async (req, res) => {
 
 const createStuffy = async (req, res) => {
   try {
+    console.log(`Received Stuffy data:`, req.body)
     const stuffy = await new Stuffy(req.body)
     await stuffy.save()
     return res.status(201).json({
       stuffy,
     })
   } catch (error) {
+    console.log(`Error in POST /stuffies:`, error)
     return res.status(500).json({ error: error.message })
   }
 }

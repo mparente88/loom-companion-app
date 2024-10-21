@@ -234,6 +234,8 @@ if (stuffyForm) {
       wearTear: event.target.wearTear.value,
     }
 
+    console.log(`New Stuffy Data:`, newStuffy)
+
     try {
       await axios.post(`http://localhost:3001/stuffies`, newStuffy)
       alert(`Stuffed Animal created successfully!`)
