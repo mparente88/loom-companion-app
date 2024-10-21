@@ -42,10 +42,10 @@ const fetchFearDetailForEdit = async () => {
       const response = await axios.get(`http://localhost:3001/fears/${fearId}`)
       const fear = response.data
 
-      document.getElementById("name").value = fear.name
-      document.getElementById("desc").value = fear.desc
-      document.getElementById("severity").value = fear.severity
-      document.getElementById("frequency").value = fear.frequency
+      document.getElementById("name").value = fear.name || ""
+      document.getElementById("desc").value = fear.desc || ""
+      document.getElementById("severity").value = fear.severity || 0
+      document.getElementById("frequency").value = fear.frequency || 0
 
       const editForm = document.getElementById("edit-fear-form")
       editForm.addEventListener("submit", async (event) => {
@@ -54,8 +54,8 @@ const fetchFearDetailForEdit = async () => {
         const updatedFear = {
           name: event.target.name.value,
           desc: event.target.desc.value,
-          severity: event.target.severity.value,
-          frequency: event.target.frequency.value,
+          severity: parseInt(event.target.severity.value),
+          frequency: parseInt(event.target.frequency.value),
         }
 
         try {
@@ -70,6 +70,10 @@ const fetchFearDetailForEdit = async () => {
       console.error("Error fetching fear details for edit:", error)
     }
   }
+}
+
+if (window.location.pathname === "/client/editFear.html") {
+  fetchFearDetailForEdit()
 }
 
 const fetchKids = async () => {
@@ -235,6 +239,67 @@ const fetchStuffies = async () => {
   } catch (error) {
     console.error("Error fetching stuffies:", error)
   }
+}
+
+const fetchStuffyDetailForEdit = async () => {
+  const urlParams = new URLSearchParams(window.location.search)
+  const stuffyId = urlParams.get("id")
+
+  const kidsResponse = await axios.get(`http://localhost:3001/kids`)
+  const kids = kidsResponse.data
+
+  const personSelect = document.getElementById("person")
+  kids.forEach((kid) => {
+    const option = document.createElement("option")
+    option.value = kid._id
+    option.textContent = kid.name
+    personSelect.appendChild(option)
+  })
+
+  if (stuffyId) {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/stuffies/${stuffyId}`
+      )
+      const stuffy = response.data
+
+      document.getElementById("name").value = stuffy.name
+      document.getElementById("animalType").value = stuffy.animalType
+      document.getElementById("desc").value = stuffy.desc
+      document.getElementById("person").value = stuffy.person
+        ? stuffy.person._id
+        : ""
+
+      const editForm = document.getElementById("edit-stuffy-form")
+      editForm.addEventListener("submit", async (event) => {
+        event.preventDefault()
+
+        const updatedStuffy = {
+          name: event.target.name.value,
+          animalType: event.target.animalType.value,
+          desc: event.target.desc.value,
+          person: event.target.person.value || null,
+        }
+
+        try {
+          await axios.put(
+            `http://localhost:3001/stuffies/${stuffyId}`,
+            updatedStuffy
+          )
+          alert("Stuffy updated successfully!")
+          window.location.href = "stuffies.html"
+        } catch (error) {
+          console.error("Error updating stuffy:", error)
+        }
+      })
+    } catch (error) {
+      console.error("Error fetching stuffy details for edit:", error)
+    }
+  }
+}
+
+if (window.location.pathname === "/client/editStuffy.html") {
+  fetchStuffyDetailForEdit()
 }
 
 const fetchFearDetail = async () => {
