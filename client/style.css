@@ -421,6 +421,99 @@ button[type="submit"]:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.edit-page {
+  background-color: rgba(250, 218, 221, 0.8);
+  padding: 40px;
+  border-radius: 12px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+}
+
+.edit-page h1 {
+  text-align: center;
+  font-size: 2.2em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.edit-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.edit-page form input[type="text"],
+.edit-page form input[type="number"],
+.edit-page form textarea,
+.edit-page form select {
+  padding: 10px;
+  border: 1px solid #d3d3d3;
+  border-radius: 10px;
+  font-family: "Comfortaa", sans-serif;
+  font-size: 1em;
+  background-color: #f0f8ff;
+}
+
+.edit-page form textarea {
+  resize: vertical;
+}
+
+.edit-page form input:focus,
+.edit-page form textarea:focus,
+.edit-page form select:focus {
+  outline: none;
+  border-color: #a7c7e7;
+  box-shadow: 0 0 5px rgba(167, 199, 231, 0.5);
+}
+
+.edit-page form label {
+  font-weight: bold;
+  color: #333;
+  font-size: 1.1em;
+}
+
+.edit-page form button[type="submit"] {
+  background-color: #a7c7e7;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: "Comfortaa", sans-serif;
+}
+
+.edit-page form button[type="submit"]:hover {
+  background-color: #6495ed;
+}
+
+.edit-page form input,
+.edit-page form textarea,
+.edit-page form select {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.edit-page form label {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.edit-page form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .edit-page {
+    padding: 20px;
+    margin: 15px;
+  }
+}
+
 @media (max-width: 768px) {
   .stuffy-item,
   .kid-item,
