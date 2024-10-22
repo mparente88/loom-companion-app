@@ -11,15 +11,16 @@ const getAllKids = async (req, res) => {
 
 const getKidById = async (req, res) => {
   try {
-    const { id } = req.params
+    const id = req.params.id || req
     const kid = await Kid.findById(id)
       .populate(`favStuffy`)
       .populate(`mainFear`)
       .populate(`otherFears`)
     if (kid) {
-      return res.json(kid)
+      if (req.params) return res.json(kid)
+      return kid
     }
-    return res.status(404).send(`that kid doesn't exist`)
+    return res.status(404).send(`That kid doesn't exist`)
   } catch (error) {
     if (error.name === "CastError" && error.kind === "ObjectId") {
       return res.status(404).send(`That kid doesn't exist`)

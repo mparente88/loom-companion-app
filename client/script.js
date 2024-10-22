@@ -506,6 +506,7 @@ const handleFormSubmit = async (event) => {
 
   const kidId = document.getElementById("kid").value
   const fearId = document.getElementById("fear").value
+  const additionalInfo = document.getElementById("additionalInfo").value // Get additional info
 
   if (!kidId || !fearId) {
     alert("Please select both a kid and a fear.")
@@ -516,12 +517,13 @@ const handleFormSubmit = async (event) => {
     const response = await axios.post("http://localhost:3001/recommendStuffy", {
       kidId,
       fearId,
+      additionalInfo,
     })
 
     const recommendation = response.data.recommendation
 
     const resultDiv = document.getElementById("recommendation-result")
-    resultDiv.innerHTML = `<H2>Recommended Stuffed Animal:</h2><p>${recomendation}</p>`
+    resultDiv.innerHTML = `<h2>Recommended Stuffed Animal:</h2><p>${recommendation}</p>`
   } catch (error) {
     console.error("Error getting recommendation:", error)
     alert("Failed to get stuffed animal recommendation.")

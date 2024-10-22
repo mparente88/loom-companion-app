@@ -9,28 +9,58 @@
       href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script defer src="script.js"></script>
+    <link rel="stylesheet" href="style.css" />
     <title>Find the Perfect Stuffed Animal</title>
   </head>
   <body>
-    <h1>Find the Perfect Stuffed Animal</h1>
+    <header>
+      <nav>
+        <div class="hamburger">&#9776;</div>
+        <div class="logo">
+          <a href="./index.html">Loom</a>
+        </div>
+      </nav>
+    </header>
 
-    <form id="recommendation-form">
-      <label for="kid">Select a Kid:</label>
-      <select id="kid" name="kid">
-        <option value="">--Select Kid--</option>
-      </select>
+    <div class="hero-banner-container">
+      <h1 class="hero-header">Find the Perfect Stuffed Animal</h1>
+    </div>
 
-      <label for="fear">Select a Fear:</label>
-      <select id="fear" name="fear">
-        <option value="">--Select Fear--</option>
-      </select>
+    <div class="add-page">
+      <form id="recommendation-form">
+        <label for="kid">Select a Kid:</label>
+        <select id="kid" name="kid">
+          <option value="">--Select Kid--</option>
+        </select>
 
-      <button type="submit">Find Stuffed Animal</button>
-    </form>
+        <label for="fear">Select a Fear:</label>
+        <select id="fear" name="fear">
+          <option value="">--Select Fear--</option>
+        </select>
 
-    <div id="recommendation-result"></div>
+        <label for="additionalInfo">Additional Information:</label>
+        <textarea
+          id="additionalInfo"
+          name="additionalInfo"
+          placeholder="Any extra details to consider... The more you include, the better!"
+        ></textarea>
+
+        <button type="submit">Find Stuffed Animal</button>
+      </form>
+
+      <div id="recommendation-result"></div>
+    </div>
+
+    <aside class="hamburger-menu">
+      <div class="close-btn">&times;</div>
+      <ul class="link-list">
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./kids.html">Person</a></li>
+        <li><a href="./stuffies.html">Stuffed Animal</a></li>
+        <li><a href="./fears.html">Fear</a></li>
+      </ul>
+    </aside>
   </body>
 </html>
