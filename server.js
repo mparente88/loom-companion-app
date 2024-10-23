@@ -54,22 +54,21 @@ app.post("/recommendStuffy", async (req, res) => {
       return res.status(404).json({ error: "Kid or Fear not found" })
     }
 
-    const prompt = `Your job is to pair kids with stuffed animals that protect them from their fears. 
-    You like to make a big ceremony out of the whole thing. It's very celebratory, and it should be a
-    big moment for both the kid and the stuffed animal, who has always wanted a Person to protect. Your
-    response is speaking directly to the kid, and you like to remind them of how much they mean to the
-    stuffed animal they are about to inherit. In the fiction of this prompt, you are not creating a 
-    stuffed animal, but you are finding one from a list of stuffed animals that have no Person to protect,
-    and stuffed animals need a Person to protect! It's important to them.
-    These are some details for you:
-        Kid: ${kid.name}, Description: ${kid.desc}, Age: ${kid.age}, Fear: ${
-      fear.name
-    } (${fear.desc}).
+    const prompt = `You are a grand storyteller, known for ceremoniously pairing brave children with stuffed animals who long to protect them. 
+    The bond you help create is magical, and this moment is filled with excitement, joy, and love. 
+    The stuffed animals you introduce are not just toys; they are fierce, loyal companions with unique backstories, each awaiting their perfect Person to protect. 
+    
+    Now, it's time for an extraordinary pairing:
+    
+        Kid: ${kid.name}, Description: ${kid.desc}, Age: ${kid.age}
+        Fear: ${fear.name} (${fear.desc})
         Additional Information: ${
           additionalInfo || "No additional information provided."
         }
-        Please present the stuffed animal, introducing it by name and animal type, to the kid as their new
-        protector and friend. Describe their backstory and special powers! Keep it to 650 characters or less.`
+    
+    In this moment, speak directly to the child, making them feel like the special Person they are. 
+    Introduce their new stuffed animal companion by name and animal type, and describe the special powers it possesses to keep them safe. 
+    End the message with a heartwarming and empowering promise of friendship and protection. Keep the tone magical, inspiring, and uplifting, all within 650 characters.`
 
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",
