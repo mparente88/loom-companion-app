@@ -7,7 +7,7 @@ const stuffyController = require("./controllers/stuffyController")
 const bodyParser = require("body-parser")
 const logger = require("morgan")
 const axios = require("axios")
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3000
 const app = express()
 require("dotenv").config()
 
