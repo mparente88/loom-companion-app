@@ -1,6 +1,6 @@
 //I asked ChatGPT for help in formatting the "createElement" function.
 
-const apiBaseURL = window.location.hostname === "localhost" ? "http://localhost:3001" : "https://loom-app-621309c042dd.herokuapp.com"
+const apiBaseURL = window.location.hostname === "localhost" ? "http://localhost:3000" : "https://loom-app-621309c042dd.herokuapp.com"
 
 const fetchFears = async () => {
   try {
