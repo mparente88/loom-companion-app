@@ -15,9 +15,7 @@ app.use(logger("dev"))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(_dirname, "public", "index.html"))
-})
+app.get("/", (req, res) => res.send("This is our landing page!"))
 app.get("/kids", kidController.getAllKids)
 app.get("/kids/:id", kidController.getKidById)
 
