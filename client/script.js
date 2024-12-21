@@ -75,7 +75,7 @@ const fetchFearDetailForEdit = async () => {
   }
 }
 
-if (window.location.pathname === "/client/editFear.html") {
+if (window.location.pathname === "/editFear.html") {
   fetchFearDetailForEdit()
 }
 
@@ -192,7 +192,7 @@ const fetchKidDetailForEdit = async () => {
   }
 }
 
-if (window.location.pathname === "/client/editKid.html") {
+if (window.location.pathname === "/editKid.html") {
   fetchKidDetailForEdit()
 }
 
@@ -279,7 +279,7 @@ const fetchStuffyDetailForEdit = async () => {
   }
 }
 
-if (window.location.pathname === "/client/editStuffy.html") {
+if (window.location.pathname === "/editStuffy.html") {
   fetchStuffyDetailForEdit()
 }
 
@@ -481,19 +481,19 @@ const handleFormSubmit = async (event) => {
 document.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname
 
-  if (path === "/client/fears.html") {
+  if (path === "/fears.html") {
     fetchFears()
-  } else if (path === "/client/stuffies.html") {
+  } else if (path === "/stuffies.html") {
     fetchStuffies()
-  } else if (path === "/client/kids.html") {
+  } else if (path === "/kids.html") {
     fetchKids()
-  } else if (path === "/client/fearDetail.html") {
+  } else if (path === "/fearDetail.html") {
     fetchFearDetail()
-  } else if (path === "/client/kidDetail.html") {
+  } else if (path === "/kidDetail.html") {
     fetchKidDetail()
-  } else if (path === "/client/stuffyDetail.html") {
+  } else if (path === "/stuffyDetail.html") {
     fetchStuffyDetail()
-  } else if (path === "/client/stuffyFinder.html") {
+  } else if (path === "/stuffyFinder.html") {
     populateDropdowns()
     const form = document.getElementById("recommendation-form")
     form.addEventListener("submit", handleFormSubmit)
