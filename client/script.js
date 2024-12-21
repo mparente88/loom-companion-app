@@ -29,6 +29,7 @@ const fetchFears = async () => {
         event.stopPropagation()
         window.location.href = `editFear.html?id=${fear._id}`
       })
+      console.log("Fetched fears:", fears)
     })
   } catch (error) {
     console.error(`Error fetching fears:`, error)
