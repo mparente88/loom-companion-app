@@ -1,8 +1,10 @@
 //I asked ChatGPT for help in formatting the "createElement" function.
 
+const apiBaseURL = window.location.hostname === "localhost" ? "http://localhost:3001" : "https://loom-app-621309c042dd.herokuapp.com"
+
 const fetchFears = async () => {
   try {
-    const response = await axios.get(`http://localhost:3001/fears`)
+    const response = await axios.get(`${apiBaseURL}/fears`)
     const fears = response.data
     const fearsList = document.getElementById(`fears-list`)
 
@@ -39,7 +41,7 @@ const fetchFearDetailForEdit = async () => {
 
   if (fearId) {
     try {
-      const response = await axios.get(`http://localhost:3001/fears/${fearId}`)
+      const response = await axios.get(`${apiBaseURL}/fears/${fearId}`)
       const fear = response.data
 
       document.getElementById("name").value = fear.name || ""
@@ -59,7 +61,7 @@ const fetchFearDetailForEdit = async () => {
         }
 
         try {
-          await axios.put(`http://localhost:3001/fears/${fearId}`, updatedFear)
+          await axios.put(`${apiBaseURL}/fears/${fearId}`, updatedFear)
           alert("Fear updated successfully!")
           window.location.href = "fears.html"
         } catch (error) {
@@ -78,7 +80,7 @@ if (window.location.pathname === "/client/editFear.html") {
 
 const fetchKids = async () => {
   try {
-    const response = await axios.get("http://localhost:3001/kids")
+    const response = await axios.get(`${apiBaseURL}/kids`)
     const kids = response.data
     const kidsList = document.getElementById("kids-list")
 
@@ -91,9 +93,7 @@ const fetchKids = async () => {
         <p>Description: ${kid.desc}</p>
         <p>Main Fear: ${kid.mainFear ? kid.mainFear.name : `None`}</p>
         <p>Favorite Stuffy: ${kid.favStuffy ? kid.favStuffy.name : `None`}</p>
-        <button class="edit-btn" onclick="window.location.href='editKid.html?id=${
-          kid._id
-        }'">Edit</button>
+        <button class="edit-btn" onclick="window.location.href='editKid.html?id=${kid._id}'">Edit</button>
       `
 
       kidDiv.addEventListener(`click`, () => {
@@ -117,10 +117,7 @@ const fetchKidDetailForEdit = async () => {
   const urlParams = new URLSearchParams(window.location.search)
   const kidId = urlParams.get("id")
 
-  const [stuffiesResponse, fearsResponse] = await Promise.all([
-    axios.get(`http://localhost:3001/stuffies`),
-    axios.get(`http://localhost:3001/fears`),
-  ])
+  const [stuffiesResponse, fearsResponse] = await Promise.all([axios.get(`${apiBaseURL}/stuffies`), axios.get(`${apiBaseURL}/fears`)])
   const stuffies = stuffiesResponse.data
   const fears = fearsResponse.data
 
@@ -147,26 +144,20 @@ const fetchKidDetailForEdit = async () => {
 
   if (kidId) {
     try {
-      const response = await axios.get(`http://localhost:3001/kids/${kidId}`)
+      const response = await axios.get(`${apiBaseURL}/kids/${kidId}`)
       const kid = response.data
 
       document.getElementById("name").value = kid.name
       document.getElementById("age").value = kid.age
       document.getElementById("desc").value = kid.desc
-      document.getElementById("favStuffy").value = kid.favStuffy
-        ? kid.favStuffy._id
-        : ""
-      document.getElementById("mainFear").value = kid.mainFear
-        ? kid.mainFear._id
-        : ""
+      document.getElementById("favStuffy").value = kid.favStuffy ? kid.favStuffy._id : ""
+      document.getElementById("mainFear").value = kid.mainFear ? kid.mainFear._id : ""
       document.getElementById("sleepQual").value = kid.sleepQual
       document.getElementById("nightmareCt").value = kid.nightmareCt
       document.getElementById("notes").value = kid.notes || ""
 
       kid.otherFears.forEach((fear) => {
-        const option = otherFearsSelect.querySelector(
-          `option[value="${fear._id}"]`
-        )
+        const option = otherFearsSelect.querySelector(`option[value="${fear._id}"]`)
         if (option) option.selected = true
       })
 
@@ -183,13 +174,11 @@ const fetchKidDetailForEdit = async () => {
           sleepQual: event.target.sleepQual.value,
           nightmareCt: event.target.nightmareCt.value,
           notes: event.target.notes.value || null,
-          otherFears: Array.from(
-            event.target["otherFears[]"].selectedOptions
-          ).map((fearOption) => fearOption.value),
+          otherFears: Array.from(event.target["otherFears[]"].selectedOptions).map((fearOption) => fearOption.value),
         }
 
         try {
-          await axios.put(`http://localhost:3001/kids/${kidId}`, updatedKid)
+          await axios.put(`${apiBaseURL}/kids/${kidId}`, updatedKid)
           alert("Kid updated successfully!")
           window.location.href = "kids.html"
         } catch (error) {
@@ -208,7 +197,7 @@ if (window.location.pathname === "/client/editKid.html") {
 
 const fetchStuffies = async () => {
   try {
-    const response = await axios.get("http://localhost:3001/stuffies")
+    const response = await axios.get(`${apiBaseURL}/stuffies`)
     const stuffies = response.data
     const stuffiesList = document.getElementById("stuffies-list")
 
@@ -220,9 +209,7 @@ const fetchStuffies = async () => {
         <p>Type: ${stuffy.animalType}</p>
         <p>Description: ${stuffy.desc}</p>
         <p>Belongs To: ${stuffy.person ? stuffy.person.name : `No One`}</p>
-        <button class="edit-btn" onclick="window.location.href='editStuffy.html?id=${
-          stuffy._id
-        }'">Edit</button>
+        <button class="edit-btn" onclick="window.location.href='editStuffy.html?id=${stuffy._id}'">Edit</button>
       `
 
       stuffyDiv.addEventListener(`click`, () => {
@@ -245,7 +232,7 @@ const fetchStuffyDetailForEdit = async () => {
   const urlParams = new URLSearchParams(window.location.search)
   const stuffyId = urlParams.get("id")
 
-  const kidsResponse = await axios.get(`http://localhost:3001/kids`)
+  const kidsResponse = await axios.get(`${apiBaseURL}/kids`)
   const kids = kidsResponse.data
 
   const personSelect = document.getElementById("person")
@@ -258,17 +245,13 @@ const fetchStuffyDetailForEdit = async () => {
 
   if (stuffyId) {
     try {
-      const response = await axios.get(
-        `http://localhost:3001/stuffies/${stuffyId}`
-      )
+      const response = await axios.get(`${apiBaseURL}/stuffies/${stuffyId}`)
       const stuffy = response.data
 
       document.getElementById("name").value = stuffy.name
       document.getElementById("animalType").value = stuffy.animalType
       document.getElementById("desc").value = stuffy.desc
-      document.getElementById("person").value = stuffy.person
-        ? stuffy.person._id
-        : ""
+      document.getElementById("person").value = stuffy.person ? stuffy.person._id : ""
 
       const editForm = document.getElementById("edit-stuffy-form")
       editForm.addEventListener("submit", async (event) => {
@@ -282,10 +265,7 @@ const fetchStuffyDetailForEdit = async () => {
         }
 
         try {
-          await axios.put(
-            `http://localhost:3001/stuffies/${stuffyId}`,
-            updatedStuffy
-          )
+          await axios.put(`${apiBaseURL}/stuffies/${stuffyId}`, updatedStuffy)
           alert("Stuffy updated successfully!")
           window.location.href = "stuffies.html"
         } catch (error) {
@@ -308,7 +288,7 @@ const fetchFearDetail = async () => {
 
   if (fearId) {
     try {
-      const response = await axios.get(`http://localhost:3001/fears/${fearId}`)
+      const response = await axios.get(`${apiBaseURL}/fears/${fearId}`)
       const fear = response.data
       const fearDetailDiv = document.getElementById(`fear-detail`)
 
@@ -324,23 +304,19 @@ const fetchFearDetail = async () => {
         window.location.href = `editFear.html?id=${fearId}`
       })
 
-      document
-        .getElementById(`delete-fear-btn`)
-        .addEventListener(`click`, async () => {
-          const confirmDelete = confirm(
-            `You are about to delete a fear. Are you sure?`
-          )
-          if (confirmDelete) {
-            try {
-              await axios.delete(`http://localhost:3001/fears/${fearId}`)
-              alert(`Fear deleted successfully`)
-              window.location.href = `fears.html`
-            } catch (error) {
-              console.error(`Error deleting fear:`, error)
-              alert(`Failed to delete fear.`)
-            }
+      document.getElementById(`delete-fear-btn`).addEventListener(`click`, async () => {
+        const confirmDelete = confirm(`You are about to delete a fear. Are you sure?`)
+        if (confirmDelete) {
+          try {
+            await axios.delete(`${apiBaseURL}/fears/${fearId}`)
+            alert(`Fear deleted successfully`)
+            window.location.href = `fears.html`
+          } catch (error) {
+            console.error(`Error deleting fear:`, error)
+            alert(`Failed to delete fear.`)
           }
-        })
+        }
+      })
     } catch (error) {
       console.error("Error fetching fear details:", error)
     }
@@ -353,14 +329,10 @@ const fetchStuffyDetail = async () => {
 
   if (stuffyId) {
     try {
-      const response = await axios.get(
-        `http://localhost:3001/stuffies/${stuffyId}`
-      )
+      const response = await axios.get(`${apiBaseURL}/stuffies/${stuffyId}`)
       const stuffy = response.data
       const stuffyDetailDiv = document.getElementById(`stuffy-detail`)
-      const belongsToLink = stuffy.person
-        ? `<a href="kidDetail.html?id=${stuffy.person._id}">${stuffy.person.name}</a>`
-        : `No One`
+      const belongsToLink = stuffy.person ? `<a href="kidDetail.html?id=${stuffy.person._id}">${stuffy.person.name}</a>` : `No One`
 
       stuffyDetailDiv.innerHTML = `
       <h1>${stuffy.name}</h1>
@@ -372,29 +344,23 @@ const fetchStuffyDetail = async () => {
       <button id="edit-stuffy-btn" class="detail-edit-btn">Edit</button>
       `
 
-      document
-        .getElementById(`edit-stuffy-btn`)
-        .addEventListener(`click`, () => {
-          window.location.href = `editStuffy.html?id=${stuffyId}`
-        })
+      document.getElementById(`edit-stuffy-btn`).addEventListener(`click`, () => {
+        window.location.href = `editStuffy.html?id=${stuffyId}`
+      })
 
-      document
-        .getElementById(`delete-stuffy-btn`)
-        .addEventListener(`click`, async () => {
-          const confirmDelete = confirm(
-            `You are about to delete a stuffed animal. Are you sure?`
-          )
-          if (confirmDelete) {
-            try {
-              await axios.delete(`http://localhost:3001/stuffies/${stuffyId}`)
-              alert(`Stuffed animal deleted successfully`)
-              window.location.href = `stuffies.html`
-            } catch (error) {
-              console.error(`Error deleting stuffed animal:`, error)
-              alert(`Failed to delete stuffed animal.`)
-            }
+      document.getElementById(`delete-stuffy-btn`).addEventListener(`click`, async () => {
+        const confirmDelete = confirm(`You are about to delete a stuffed animal. Are you sure?`)
+        if (confirmDelete) {
+          try {
+            await axios.delete(`${apiBaseURL}/stuffies/${stuffyId}`)
+            alert(`Stuffed animal deleted successfully`)
+            window.location.href = `stuffies.html`
+          } catch (error) {
+            console.error(`Error deleting stuffed animal:`, error)
+            alert(`Failed to delete stuffed animal.`)
           }
-        })
+        }
+      })
     } catch (error) {
       console.error(`Error fetching stuffed animal details:`, error)
     }
@@ -409,27 +375,15 @@ const fetchKidDetail = async () => {
 
   if (kidId) {
     try {
-      const response = await axios.get(`http://localhost:3001/kids/${kidId}`)
+      const response = await axios.get(`${apiBaseURL}/kids/${kidId}`)
       const kid = response.data
       const kidDetailDiv = document.getElementById("kid-detail")
 
-      const favStuffyLink = kid.favStuffy
-        ? `<a href="stuffyDetail.html?id=${kid.favStuffy._id}">${kid.favStuffy.name}</a>`
-        : `None`
+      const favStuffyLink = kid.favStuffy ? `<a href="stuffyDetail.html?id=${kid.favStuffy._id}">${kid.favStuffy.name}</a>` : `None`
 
-      const mainFearLink = kid.mainFear
-        ? `<a href="fearDetail.html?id=${kid.mainFear._id}">${kid.mainFear.name}</a>`
-        : `None`
+      const mainFearLink = kid.mainFear ? `<a href="fearDetail.html?id=${kid.mainFear._id}">${kid.mainFear.name}</a>` : `None`
 
-      const otherFearsLinks =
-        kid.otherFears && kid.otherFears.length
-          ? kid.otherFears
-              .map(
-                (fear) =>
-                  `<a href="fearDetail.html?id=${fear._id}">${fear.name}</a>`
-              )
-              .join(", ")
-          : "None"
+      const otherFearsLinks = kid.otherFears && kid.otherFears.length ? kid.otherFears.map((fear) => `<a href="fearDetail.html?id=${fear._id}">${fear.name}</a>`).join(", ") : "None"
 
       kidDetailDiv.innerHTML = `
         <h1>${kid.name}</h1>
@@ -448,23 +402,19 @@ const fetchKidDetail = async () => {
         window.location.href = `editKid.html?id=${kidId}`
       })
 
-      document
-        .getElementById("delete-kid-btn")
-        .addEventListener("click", async () => {
-          const confirmDelete = confirm(
-            "You are about to delete this entry. Are you sure?"
-          )
-          if (confirmDelete) {
-            try {
-              await axios.delete(`http://localhost:3001/kids/${kidId}`)
-              alert("Kid deleted successfully")
-              window.location.href = "kids.html"
-            } catch (error) {
-              console.error("Error deleting kid:", error)
-              alert("Failed to delete kid.")
-            }
+      document.getElementById("delete-kid-btn").addEventListener("click", async () => {
+        const confirmDelete = confirm("You are about to delete this entry. Are you sure?")
+        if (confirmDelete) {
+          try {
+            await axios.delete(`${apiBaseURL}/kids/${kidId}`)
+            alert("Kid deleted successfully")
+            window.location.href = "kids.html"
+          } catch (error) {
+            console.error("Error deleting kid:", error)
+            alert("Failed to delete kid.")
           }
-        })
+        }
+      })
     } catch (error) {
       console.error("Error fetching kid details:", error)
     }
@@ -473,10 +423,7 @@ const fetchKidDetail = async () => {
 
 const populateDropdowns = async () => {
   try {
-    const [kidsResponse, fearsResponse] = await Promise.all([
-      axios.get("http://localhost:3001/kids"),
-      axios.get("http://localhost:3001/fears"),
-    ])
+    const [kidsResponse, fearsResponse] = await Promise.all([axios.get(`${apiBaseURL}/kids`), axios.get(`${apiBaseURL}/fears`)])
 
     const kids = kidsResponse.data
     const fears = fearsResponse.data
@@ -514,7 +461,7 @@ const handleFormSubmit = async (event) => {
   }
 
   try {
-    const response = await axios.post("http://localhost:3001/recommendStuffy", {
+    const response = await axios.post(`${apiBaseURL}/recommendStuffy`, {
       kidId,
       fearId,
       additionalInfo,
@@ -568,7 +515,7 @@ if (kidForm) {
     }
 
     try {
-      await axios.post(`http://localhost:3001/kids`, newKid)
+      await axios.post(`${apiBaseURL}/kids`, newKid)
       alert(`Kid created!`)
       window.location.href = `kids.html`
     } catch (error) {
@@ -595,7 +542,7 @@ if (stuffyForm) {
     console.log(`New Stuffy Data:`, newStuffy)
 
     try {
-      await axios.post(`http://localhost:3001/stuffies`, newStuffy)
+      await axios.post(`${apiBaseURL}/stuffies`, newStuffy)
       alert(`Stuffed Animal created successfully!`)
       window.location.href = `stuffies.html`
     } catch (error) {
@@ -619,7 +566,7 @@ if (fearForm) {
     }
 
     try {
-      await axios.post(`http://localhost:3001/fears`, newFear)
+      await axios.post(`${apiBaseURL}/fears`, newFear)
       alert(`Fear successfully created!`)
       window.location.href = `fears.html`
     } catch (error) {
@@ -642,12 +589,8 @@ document.querySelector(".close-btn").addEventListener("click", () => {
 //ChatGPT showed me what "isClickInside" is.
 
 document.addEventListener("click", (event) => {
-  const isClickInside = document
-    .querySelector(".hamburger-menu")
-    .contains(event.target)
-  const isHamburger = document
-    .querySelector(".hamburger")
-    .contains(event.target)
+  const isClickInside = document.querySelector(".hamburger-menu").contains(event.target)
+  const isHamburger = document.querySelector(".hamburger").contains(event.target)
 
   if (!isClickInside && !isHamburger) {
     document.querySelector(".hamburger-menu").classList.remove("show")
