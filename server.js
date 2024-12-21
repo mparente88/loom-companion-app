@@ -1,5 +1,6 @@
 const express = require("express")
 const cors = require("cors")
+const path = require("path")
 const db = require("./db")
 const fearController = require("./controllers/fearController")
 const kidController = require("./controllers/kidController")
@@ -15,7 +16,13 @@ app.use(logger("dev"))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get("/", (req, res) => res.send("This is our landing page!"))
+app.use(express.static(path.join(__dirname, "client")))
+
+app.use("/images", express.static(path.join(__dirname, "images")))
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "index.html"))
+})
 app.get("/kids", kidController.getAllKids)
 app.get("/kids/:id", kidController.getKidById)
 
@@ -62,9 +69,7 @@ app.post("/recommendStuffy", async (req, res) => {
     
         Kid: ${kid.name}, Description: ${kid.desc}, Age: ${kid.age}
         Fear: ${fear.name} (${fear.desc})
-        Additional Information: ${
-          additionalInfo || "No additional information provided."
-        }
+        Additional Information: ${additionalInfo || "No additional information provided."}
     
     In this moment, speak directly to the child, making them feel like the special Person they are. 
     Introduce their new stuffed animal companion by name and animal type, and describe the special powers it possesses to keep them safe. 
