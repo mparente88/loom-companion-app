@@ -27,12 +27,12 @@ const getFearById = async (req, res) => {
 
 const createFear = async (req, res) => {
   try {
+    console.log("Request body:", req.body)
     const fear = await new Fear(req.body)
     await fear.save()
-    return res.status(201).json({
-      fear,
-    })
+    return res.status(201).json({ fear })
   } catch (error) {
+    console.error("Error creating fear:", error)
     return res.status(500).json({ error: error.message })
   }
 }
